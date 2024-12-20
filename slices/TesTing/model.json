@@ -1,0 +1,16 @@
+{
+  "id": "tes_ting",
+  "type": "SharedSlice",
+  "name": "TesTing",
+  "description": "TesTing",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": ""
+    }
+  ]
+}
