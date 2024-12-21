@@ -128,5 +128,71 @@
 			}
 		},
 		"items": []
+	},
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "alignRight",
+		"primary": {
+			"image": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1589321578146-4c1ba445cc88",
+					"width": 3168,
+					"height": 4752
+				},
+				"url": "https://images.unsplash.com/photo-1589321578146-4c1ba445cc88",
+				"width": 3168,
+				"height": 4752,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"credits": null,
+				"alt": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"title": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "heading1",
+						"content": {
+							"text": "Office"
+						}
+					}
+				]
+			},
+			"paragraph": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Adipisicing consequat non pariatur ipsum aute ad minim."
+						}
+					}
+				]
+			},
+			"buttonLink": {
+				"key": "cdd67fe7-f198-44b6-87b7-299de43efe43",
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "http://twitter.com",
+					"text": "dance"
+				}
+			}
+		},
+		"items": [
+			{
+				"__TYPE__": "GroupItemContent",
+				"value": []
+			}
+		]
 	}
 ]

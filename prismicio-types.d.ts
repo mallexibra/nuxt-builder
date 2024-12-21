@@ -4,7 +4,10 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
-type PageDocumentDataSlicesSlice = CallToActionSlice;
+type PageDocumentDataSlicesSlice =
+  | RichTextSlice
+  | CallToActionSlice
+  | HeroSectionSlice;
 
 /**
  * Content for Page documents
@@ -254,11 +257,70 @@ export type CallToActionSliceAlignLeft = prismic.SharedSliceVariation<
 >;
 
 /**
+ * Primary content in *CallToAction → alignRight → Primary*
+ */
+export interface CallToActionSliceAlignRightPrimary {
+  /**
+   * Image field in *CallToAction → alignRight → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: call_to_action.alignRight.primary.image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * title field in *CallToAction → alignRight → Primary*
+   *
+   * - **Field Type**: Title
+   * - **Placeholder**: *None*
+   * - **API ID Path**: call_to_action.alignRight.primary.title
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  title: prismic.TitleField;
+
+  /**
+   * paragraph field in *CallToAction → alignRight → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: call_to_action.alignRight.primary.paragraph
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  paragraph: prismic.RichTextField;
+
+  /**
+   * buttonLink field in *CallToAction → alignRight → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: Redirect URL for CTA button
+   * - **API ID Path**: call_to_action.alignRight.primary.buttonLink
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  buttonLink: prismic.LinkField;
+}
+
+/**
+ * alignRight variation for CallToAction Slice
+ *
+ * - **API ID**: `alignRight`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type CallToActionSliceAlignRight = prismic.SharedSliceVariation<
+  "alignRight",
+  Simplify<CallToActionSliceAlignRightPrimary>,
+  never
+>;
+
+/**
  * Slice variation for *CallToAction*
  */
 type CallToActionSliceVariation =
   | CallToActionSliceDefault
-  | CallToActionSliceAlignLeft;
+  | CallToActionSliceAlignLeft
+  | CallToActionSliceAlignRight;
 
 /**
  * CallToAction Shared Slice
@@ -270,6 +332,71 @@ type CallToActionSliceVariation =
 export type CallToActionSlice = prismic.SharedSlice<
   "call_to_action",
   CallToActionSliceVariation
+>;
+
+/**
+ * Primary content in *HeroSection → Default → Primary*
+ */
+export interface HeroSectionSliceDefaultPrimary {
+  /**
+   * Image field in *HeroSection → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_section.default.primary.image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Title field in *HeroSection → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Title website on hero section
+   * - **API ID Path**: hero_section.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Button field in *HeroSection → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: Button Call To Action
+   * - **API ID Path**: hero_section.default.primary.button
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  button: prismic.LinkField;
+}
+
+/**
+ * Default variation for HeroSection Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type HeroSectionSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<HeroSectionSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *HeroSection*
+ */
+type HeroSectionSliceVariation = HeroSectionSliceDefault;
+
+/**
+ * HeroSection Shared Slice
+ *
+ * - **API ID**: `hero_section`
+ * - **Description**: HeroSection
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type HeroSectionSlice = prismic.SharedSlice<
+  "hero_section",
+  HeroSectionSliceVariation
 >;
 
 /**
@@ -378,9 +505,15 @@ declare module "@prismicio/client" {
       CallToActionSlice,
       CallToActionSliceDefaultPrimary,
       CallToActionSliceAlignLeftPrimary,
+      CallToActionSliceAlignRightPrimary,
       CallToActionSliceVariation,
       CallToActionSliceDefault,
       CallToActionSliceAlignLeft,
+      CallToActionSliceAlignRight,
+      HeroSectionSlice,
+      HeroSectionSliceDefaultPrimary,
+      HeroSectionSliceVariation,
+      HeroSectionSliceDefault,
       RichTextSlice,
       RichTextSliceDefaultPrimary,
       RichTextSliceVariation,

@@ -12,9 +12,9 @@ useHead({
 </script>
 
 <template>
-  <SliceZone
-    wrapper="main"
-    :slices="page?.data.slices ?? []"
-    :components="components"
-  />
+    <SliceZone
+      wrapper="main"
+      :slices="page?.data.slices ?? []"
+      :components="components"
+    />
 </template>

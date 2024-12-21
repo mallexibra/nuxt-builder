@@ -1,0 +1,46 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"image": {
+				"__TYPE__": "ImageContent",
+				"provider": "imgix",
+				"url": "https://images.unsplash.com/photo-1716249383743-7a5219dbd703?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHwyMHx8Y2l0cnVzJTIwZnJ1aXR8ZW58MHx8fHwxNzM0NjUyMzI2fDA&ixlib=rb-4.0.3&q=85",
+				"alt": "a person holding a bunch of fruit in their hand",
+				"origin": {
+					"id": "GnrjSRj5UVU",
+					"url": "https://images.unsplash.com/photo-1716249383743-7a5219dbd703?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHwyMHx8Y2l0cnVzJTIwZnJ1aXR8ZW58MHx8fHwxNzM0NjUyMzI2fDA&ixlib=rb-4.0.3&q=85",
+					"width": 3552,
+					"height": 2664
+				},
+				"width": 3552,
+				"height": 2664,
+				"edit": {
+					"background": "transparent",
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					}
+				},
+				"thumbnails": {}
+			},
+			"button": {
+				"key": "dcb47bd6-639d-4f4b-b236-442f091af742",
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "https://prismic.io",
+					"text": "Jual Sekarang"
+				}
+			},
+			"title": {
+				"__TYPE__": "FieldContent",
+				"type": "Text",
+				"value": "Jual Laptop Anda dan Dapatkan yang Baru!"
+			}
+		},
+		"items": []
+	}
+]
