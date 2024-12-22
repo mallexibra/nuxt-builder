@@ -1,0 +1,18 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"link": {
+				"__TYPE__": "LinkContent",
+				"key": "85bcb044-40d1-4c91-a986-4ca56ce376e7",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "https://slicemachine.dev",
+					"text": "contain"
+				}
+			}
+		},
+		"items": []
+	}
+]

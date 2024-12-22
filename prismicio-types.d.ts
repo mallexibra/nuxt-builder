@@ -4,7 +4,49 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
+type AuthorDocumentDataSlicesSlice = RichTextSlice;
+
+/**
+ * Content for Author documents
+ */
+interface AuthorDocumentData {
+  /**
+   * name field in *Author*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Name for author
+   * - **API ID Path**: author.name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  name: prismic.KeyTextField;
+
+  /**
+   * Slice Zone field in *Author*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: author.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<AuthorDocumentDataSlicesSlice>;
+}
+
+/**
+ * Author document from Prismic
+ *
+ * - **API ID**: `author`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type AuthorDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<AuthorDocumentData>, "author", Lang>;
+
 type PageDocumentDataSlicesSlice =
+  | ButtonLinkSlice
   | RichTextSlice
   | CallToActionSlice
   | HeroSectionSlice;
@@ -48,6 +90,70 @@ interface PageDocumentData {
 export type PageDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<PageDocumentData>, "page", Lang>;
 
+type PostDocumentDataSlicesSlice =
+  | RichTextSlice
+  | CallToActionSlice
+  | HeroSectionSlice;
+
+/**
+ * Content for post documents
+ */
+interface PostDocumentData {
+  /**
+   * Slice Zone field in *post*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: post.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<PostDocumentDataSlicesSlice> /**
+   * Meta Title field in *post*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: post.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *post*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: post.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *post*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: post.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * post document from Prismic
+ *
+ * - **API ID**: `post`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type PostDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<PostDocumentData>, "post", Lang>;
+
 /**
  * Item in *Settings → Navigation*
  */
@@ -72,6 +178,8 @@ export interface SettingsDocumentDataNavigationItem {
    */
   label: prismic.KeyTextField;
 }
+
+type SettingsDocumentDataSlicesSlice = ButtonLinkSlice | RichTextSlice;
 
 /**
  * Content for Settings documents
@@ -120,6 +228,17 @@ interface SettingsDocumentData {
    * - **Documentation**: https://prismic.io/docs/field#group
    */
   navigation: prismic.GroupField<Simplify<SettingsDocumentDataNavigationItem>>;
+
+  /**
+   * Slice Zone field in *Settings*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<SettingsDocumentDataSlicesSlice>;
 }
 
 /**
@@ -138,7 +257,56 @@ export type SettingsDocument<Lang extends string = string> =
     Lang
   >;
 
-export type AllDocumentTypes = PageDocument | SettingsDocument;
+export type AllDocumentTypes =
+  | AuthorDocument
+  | PageDocument
+  | PostDocument
+  | SettingsDocument;
+
+/**
+ * Primary content in *ButtonLink → Default → Primary*
+ */
+export interface ButtonLinkSliceDefaultPrimary {
+  /**
+   * Link field in *ButtonLink → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: Button Untuk Pindah Page
+   * - **API ID Path**: button_link.default.primary.link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  link: prismic.LinkField;
+}
+
+/**
+ * Default variation for ButtonLink Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ButtonLinkSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<ButtonLinkSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *ButtonLink*
+ */
+type ButtonLinkSliceVariation = ButtonLinkSliceDefault;
+
+/**
+ * ButtonLink Shared Slice
+ *
+ * - **API ID**: `button_link`
+ * - **Description**: ButtonLink
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ButtonLinkSlice = prismic.SharedSlice<
+  "button_link",
+  ButtonLinkSliceVariation
+>;
 
 /**
  * Primary content in *CallToAction → Default → Primary*
@@ -495,13 +663,24 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      AuthorDocument,
+      AuthorDocumentData,
+      AuthorDocumentDataSlicesSlice,
       PageDocument,
       PageDocumentData,
       PageDocumentDataSlicesSlice,
+      PostDocument,
+      PostDocumentData,
+      PostDocumentDataSlicesSlice,
       SettingsDocument,
       SettingsDocumentData,
       SettingsDocumentDataNavigationItem,
+      SettingsDocumentDataSlicesSlice,
       AllDocumentTypes,
+      ButtonLinkSlice,
+      ButtonLinkSliceDefaultPrimary,
+      ButtonLinkSliceVariation,
+      ButtonLinkSliceDefault,
       CallToActionSlice,
       CallToActionSliceDefaultPrimary,
       CallToActionSliceAlignLeftPrimary,

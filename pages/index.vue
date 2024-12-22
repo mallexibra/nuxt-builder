@@ -3,7 +3,7 @@ import { components } from '~/slices'
 
 const prismic = usePrismic()
 const { data: page } = useAsyncData('index', () =>
-  prismic.client.getByUID('page', 'home')
+  prismic.client.getByUID('page', 'homepage')
 )
 
 useHead({
